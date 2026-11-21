@@ -5,7 +5,9 @@ import com.scp.api.Repository.repositoryScp;
 import com.scp.api.Model.scp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,8 @@ public class ScpService {
     }
 
     public ScpDTO buscarPorID(Integer id) {
-        scp j = scpRepository.findById(id).orElseThrow(() -> new RuntimeException("SCP no encontrado con ID: " + id));
+        scp j = scpRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "SCP con ID " + id + " no existe"));
         return convertirADTO(j);
     }
 
