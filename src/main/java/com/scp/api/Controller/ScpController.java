@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/scps")
@@ -18,21 +19,43 @@ public class ScpController {
     @Autowired
     private ScpService scpService;
 
-    @GetMapping 
+    @GetMapping
     public ResponseEntity<List<ScpDTO>> obtenerTodos() {
-        List<ScpDTO> listaScps = scpService.obtenerTodos();
-        return new ResponseEntity<>(listaScps, HttpStatus.OK);
+        return ResponseEntity.ok(scpService.obtenerTodos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ScpDTO> buscarPorID(@PathVariable Integer id) {
-        ScpDTO scpDTO = scpService.buscarPorID(id);
-        return new ResponseEntity<>(scpDTO, HttpStatus.OK);
+        return ResponseEntity.ok(scpService.buscarPorID(id));
     }
 
     @PostMapping
     public ResponseEntity<ScpDTO> guardar(@Valid @RequestBody scp nuevoScp) {
         ScpDTO scpGuardado = scpService.guardar(nuevoScp);
         return new ResponseEntity<>(scpGuardado, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ScpDTO> actualizar(
+            @PathVariable Integer id,
+            @Valid @RequestBody scp scpActualizado) {
+        return ResponseEntity.ok(scpService.actualizar(id, scpActualizado));
+    }
+
+    @PatchMapping("/{id}/stock")
+    public ResponseEntity<ScpDTO> actualizarStock(
+            @PathVariable Integer id,
+            @RequestBody Map<String, Integer> body) {
+        Integer cantidad = body.get("cantidad");
+        if (cantidad == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(scpService.actualizarStock(id, cantidad));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
+        scpService.eliminar(id);
+        return ResponseEntity.noContent().build();
     }
 }
