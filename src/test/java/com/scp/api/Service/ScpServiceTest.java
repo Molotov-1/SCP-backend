@@ -36,7 +36,7 @@ class ScpServiceTest {
         ScpDTO resultado = scpService.actualizar(1, datos);
 
         assertEquals("SCP actualizado", resultado.getNombre());
-        assertEquals("Nueva descripción", resultado.getDescripcion());
+        assertEquals("Nueva descripcion", resultado.getDescripcion());
         assertEquals("Euclid", resultado.getCategoria());
         assertEquals(8, resultado.getStock());
         assertEquals(1500, resultado.getPrecio());
