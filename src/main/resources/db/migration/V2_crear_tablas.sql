@@ -1,4 +1,4 @@
--- 1. SITIOS DE CONTENCIÓN
+-- 1. SITIOS DE CONTENCION
 CREATE TABLE sitios_contencion (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL UNIQUE,
@@ -9,9 +9,9 @@ CREATE TABLE sitios_contencion (
 -- 2. SCPS
 CREATE TABLE scps (
     id SERIAL PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    descripcion VARCHAR(255) NOT NULL,
-    categoria VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(500) NOT NULL,
+    categoria VARCHAR(50) NOT NULL,
     stock INT NOT NULL DEFAULT 0,
     precio INT NOT NULL DEFAULT 0,
     sitio_id INT REFERENCES sitios_contencion(id)
@@ -20,9 +20,10 @@ CREATE TABLE scps (
 -- 3. USUARIOS
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    rol VARCHAR(20) NOT NULL DEFAULT 'usuario'
+    nombre VARCHAR(100) NOT NULL,
+    correo VARCHAR(120) NOT NULL UNIQUE,
+    clave VARCHAR(255) NOT NULL,
+    rol VARCHAR(30) NOT NULL DEFAULT 'usuario'
 );
 
 -- 4. DIRECCIONES
@@ -39,7 +40,9 @@ CREATE TABLE pagos (
     id SERIAL PRIMARY KEY,
     usuario_id INT NOT NULL REFERENCES usuarios(id),
     total INT NOT NULL DEFAULT 0,
-    estado VARCHAR(30) NOT NULL DEFAULT 'PAGADO'
+    estado VARCHAR(30) NOT NULL DEFAULT 'PAGADO',
+    metodo_pago VARCHAR(50) NOT NULL,
+    fecha_creacion TIMESTAMP NOT NULL
 );
 
 -- 6. DETALLE DE PAGOS
@@ -55,14 +58,16 @@ CREATE TABLE pago_items (
 CREATE TABLE entregas (
     id SERIAL PRIMARY KEY,
     pago_id INT NOT NULL UNIQUE REFERENCES pagos(id) ON DELETE CASCADE,
-    destino VARCHAR(150) NOT NULL,
-    estado VARCHAR(30) NOT NULL DEFAULT 'PREPARANDO'
+    direccion_id INT NOT NULL REFERENCES direcciones(id),
+    estado VARCHAR(30) NOT NULL DEFAULT 'PREPARANDO',
+    codigo_seguimiento VARCHAR(100)
 );
 
 -- 8. CARRITOS
 CREATE TABLE carritos (
     id SERIAL PRIMARY KEY,
-    usuario_id INT NOT NULL UNIQUE REFERENCES usuarios(id) ON DELETE CASCADE
+    usuario_id INT NOT NULL UNIQUE REFERENCES usuarios(id) ON DELETE CASCADE,
+    estado VARCHAR(30) NOT NULL DEFAULT 'ACTIVO'
 );
 
 -- 9. ITEMS DEL CARRITO
