@@ -1,7 +1,6 @@
 package com.scp.api.Config;
 
-import com.scp.api.config.ManejadorErrores;
-import com.scp.api.Model.scp;
+import com.scp.api.Model.Scp;
 import jakarta.validation.Valid;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -67,7 +66,7 @@ class ManejadorErroresTest {
     static class ControladorPrueba {
 
         @PostMapping("/prueba/scps")
-        void validar(@Valid @RequestBody scp nuevoScp) {
+        void validar(@Valid @RequestBody Scp nuevoScp) {
         }
 
         @GetMapping("/prueba/scps/{id}")

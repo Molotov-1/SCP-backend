@@ -1,4 +1,4 @@
-package com.scp.api.config;
+package com.scp.api.Config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;

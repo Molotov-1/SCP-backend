@@ -1,8 +1,8 @@
 package com.scp.api.Service;
 
 import com.scp.api.DTO.ScpDTO;
-import com.scp.api.Model.scp;
-import com.scp.api.Repository.repositoryScp;
+import com.scp.api.Model.Scp;
+import com.scp.api.Repository.RepositoryScp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,29 +15,29 @@ import java.util.List;
 public class ScpService {
 
     @Autowired
-    private repositoryScp scpRepository;
+    private RepositoryScp scpRepository;
 
     public List<ScpDTO> obtenerTodos() {
         List<ScpDTO> listaDTOs = new ArrayList<>();
-        for (scp j : scpRepository.findAll()) {
+        for (Scp j : scpRepository.findAll()) {
             listaDTOs.add(convertirADTO(j));
         }
         return listaDTOs;
     }
 
     public ScpDTO buscarPorID(Integer id) {
-        scp j = scpRepository.findById(id).orElseThrow(
+        Scp j = scpRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "SCP con ID " + id + " no existe"));
         return convertirADTO(j);
     }
 
-    public ScpDTO guardar(scp nuevoScp) {
-        scp scpGuardado = scpRepository.save(nuevoScp);
+    public ScpDTO guardar(Scp nuevoScp) {
+        Scp scpGuardado = scpRepository.save(nuevoScp);
         return convertirADTO(scpGuardado);
     }
 
-    public ScpDTO actualizar(Integer id, scp datos) {
-        scp existente = scpRepository.findById(id).orElseThrow(
+    public ScpDTO actualizar(Integer id, Scp datos) {
+        Scp existente = scpRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "SCP con ID " + id + " no existe"));
 
         existente.setNombre(datos.getNombre());
@@ -50,7 +50,7 @@ public class ScpService {
     }
 
     public ScpDTO actualizarStock(Integer id, Integer cantidad) {
-        scp existente = scpRepository.findById(id).orElseThrow(
+        Scp existente = scpRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "SCP con ID " + id + " no existe"));
 
         int nuevoStock = Math.max(0, (existente.getStock() == null ? 0 : existente.getStock()) + cantidad);
@@ -66,7 +66,7 @@ public class ScpService {
         scpRepository.deleteById(id);
     }
 
-    private ScpDTO convertirADTO(scp j) {
+    private ScpDTO convertirADTO(Scp j) {
         ScpDTO dto = new ScpDTO();
         dto.setId(j.getId());
         dto.setNombre(j.getNombre());

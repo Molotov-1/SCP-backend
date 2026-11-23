@@ -1,8 +1,8 @@
 package com.scp.api.Repository;
 
-import com.scp.api.Model.scp;
+import com.scp.api.Model.Scp;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface repositoryScp extends JpaRepository<scp, Integer> {
+public interface RepositoryScp extends JpaRepository<Scp, Integer> {
 
 }

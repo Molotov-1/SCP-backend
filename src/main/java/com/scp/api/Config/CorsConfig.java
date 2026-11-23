@@ -1,4 +1,4 @@
-package com.scp.api.config;
+package com.scp.api.Config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

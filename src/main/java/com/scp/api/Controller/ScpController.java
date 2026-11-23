@@ -1,7 +1,7 @@
 package com.scp.api.Controller;
 
 import com.scp.api.DTO.ScpDTO;
-import com.scp.api.Model.scp;
+import com.scp.api.Model.Scp;
 import com.scp.api.Service.ScpService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class ScpController {
     }
 
     @PostMapping
-    public ResponseEntity<ScpDTO> guardar(@Valid @RequestBody scp nuevoScp) {
+    public ResponseEntity<ScpDTO> guardar(@Valid @RequestBody Scp nuevoScp) {
         ScpDTO scpGuardado = scpService.guardar(nuevoScp);
         return new ResponseEntity<>(scpGuardado, HttpStatus.CREATED);
     }
@@ -38,7 +38,7 @@ public class ScpController {
     @PutMapping("/{id}")
     public ResponseEntity<ScpDTO> actualizar(
             @PathVariable Integer id,
-            @Valid @RequestBody scp scpActualizado) {
+            @Valid @RequestBody Scp scpActualizado) {
         return ResponseEntity.ok(scpService.actualizar(id, scpActualizado));
     }
 
