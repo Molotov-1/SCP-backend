@@ -1,7 +1,16 @@
 package com.scp.api.Model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,20 +20,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "scps")
-public class scp {
+public class Scp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "El nombre del SCP no puede quedar vacío")
-    @Size(min = 3, max = 50)
+    @NotBlank(message = "El nombre no puede quedar vacio")
+    @Size(min = 2, max = 100)
     private String nombre;
 
-    @NotBlank(message = "La descripción es obligatoria")
+    @NotBlank(message = "La descripcion es obligatoria")
+    @Size(max = 500)
     private String descripcion;
 
-    @NotBlank (message = "La categoría es obligatoria")
+    @NotBlank(message = "La categoria es obligatoria")
+    @Size(max = 50)
     private String categoria;
 
     @NotNull
@@ -34,4 +45,8 @@ public class scp {
     @NotNull
     @Min(0)
     private Integer precio;
+
+    @ManyToOne
+    @JoinColumn(name = "sitio_id")
+    private SitioContencion sitio;
 }
