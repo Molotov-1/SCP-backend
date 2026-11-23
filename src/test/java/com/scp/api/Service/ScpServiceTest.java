@@ -29,8 +29,7 @@ class ScpServiceTest {
     @Test
     void actualizarGuardaLosCamposActualizados() {
         Scp existente = scpExistente();
-        Scp datos = new Scp(1, "SCP actualizado", "Nueva descripción",
-                "Euclid", 8, 1500);
+        Scp datos = new Scp(1, "SCP actualizado", "Nueva descripcion", "Euclid", 8, 1500, null);
         when(scpRepository.findById(1)).thenReturn(Optional.of(existente));
         when(scpRepository.save(existente)).thenReturn(existente);
 
@@ -78,7 +77,6 @@ class ScpServiceTest {
     }
 
     private Scp scpExistente() {
-        return new Scp(1, "SCP original", "Descripción original",
-                "Safe", 5, 1000);
+        return new Scp(1, "SCP original", "Descripcion original", "Safe", 5, 1000, null);
     }
 }
