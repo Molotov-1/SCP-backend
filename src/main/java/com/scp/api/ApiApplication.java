@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition(info = @Info(
 		title = "SCP API",
 		version = "1.0.0",
-		description = "API REST para consultar y administrar el catálogo de SCP."
+		description = "API REST para administrar SCP, usuarios, carritos, pagos y entregas."
 ))
 public class ApiApplication {
 
